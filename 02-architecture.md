@@ -70,8 +70,6 @@ The platform consists of:
 +----------------------------------------------------------+
 ```
 
-> **Screenshot:** `docs/screenshots/platform-architecture.png`
-
 ---
 
 ## Application Architecture
@@ -101,7 +99,6 @@ Frontend
   +----> Todo Service ----> PostgreSQL
 ```
 
-> **Screenshot:** `docs/screenshots/application-flow.png`
 
 ---
 
@@ -133,7 +130,6 @@ k3d Cluster
 - ConfigMap, Secret, PVC
 - HPA, NetworkPolicy
 
-> **Screenshot:** `docs/screenshots/kubernetes-architecture.png`
 
 ---
 
@@ -166,8 +162,6 @@ FluxCD
 Kubernetes Cluster
 ```
 
-> **Screenshot:** `docs/screenshots/gitops-flow.png`
-
 ---
 
 ## Observability Architecture
@@ -189,7 +183,6 @@ Application Metrics        Application Logs
                   Grafana
 ```
 
-> **Screenshot:** `docs/screenshots/observability-architecture.png`
 
 ---
 

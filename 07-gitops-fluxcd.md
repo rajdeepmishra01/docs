@@ -50,7 +50,6 @@ Kustomize  HelmRelease
  Kubernetes Cluster
 ```
 
-> **Screenshot:** `docs/screenshots/gitops-architecture.png`
 
 ---
 
@@ -71,7 +70,6 @@ Verify:
 kubectl get pods -n flux-system
 ```
 
-> **Screenshot:** `docs/screenshots/flux-controllers.png`
 
 ---
 
@@ -91,7 +89,6 @@ major-assignment-gitops/
 
 This repository acts as the source of truth for the cluster.
 
-> **Screenshot:** `docs/screenshots/gitops-repository.png`
 
 ---
 
@@ -127,7 +124,6 @@ flux get kustomizations -A
 - `todo-platform-dev`
 - `todo-platform-staging`
 
-> **Screenshot:** `docs/screenshots/helmrelease-kustomization.png`
 
 ---
 
@@ -184,7 +180,6 @@ kubectl get imagepolicies -A
 kubectl get imageupdateautomations -A
 ```
 
-> **Screenshot:** `docs/screenshots/image-automation.png`
 
 ---
 
@@ -214,8 +209,6 @@ Flux Reconciliation
       v
 Kubernetes Deployment
 ```
-
-> **Screenshot:** `docs/screenshots/gitops-flow.png`
 
 ---
 

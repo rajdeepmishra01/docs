@@ -39,7 +39,6 @@ Verify:
 kubectl get nodes -o wide
 ```
 
-> **Screenshot:** `docs/screenshots/cluster-nodes.png`
 
 ---
 
@@ -61,7 +60,6 @@ Verify:
 kubectl get namespaces
 ```
 
-> **Screenshot:** `docs/screenshots/namespaces.png`
 
 ---
 
@@ -85,7 +83,6 @@ kubectl get pods -n todo-platform
 
 Kubernetes automatically recreates failed pods, providing self-healing capabilities.
 
-> **Screenshot:** `docs/screenshots/deployments-pods.png`
 
 ---
 
@@ -112,7 +109,6 @@ Verify external access via Ingress:
 kubectl get ingress -n todo-platform
 ```
 
-> **Screenshot:** `docs/screenshots/services-ingress.png`
 
 ---
 
@@ -133,7 +129,6 @@ kubectl get configmaps -n todo-platform
 kubectl get secrets -n todo-platform
 ```
 
-> **Screenshot:** `docs/screenshots/configmaps-secrets.png`
 
 ---
 
@@ -147,7 +142,6 @@ Verify:
 kubectl get pvc -n todo-platform
 ```
 
-> **Screenshot:** `docs/screenshots/persistent-storage.png`
 
 ---
 
@@ -171,7 +165,6 @@ resources:
 - Resource Isolation
 - Autoscaling Support
 
-> **Screenshot:** `docs/screenshots/resource-limits.png`
 
 ---
 

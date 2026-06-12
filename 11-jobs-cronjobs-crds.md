@@ -56,7 +56,6 @@ kubectl get jobs -A
 kubectl describe job <job-name>
 ```
 
-> **Screenshot:** `docs/screenshots/jobs-parallel-job.png`
 
 ---
 
@@ -87,7 +86,6 @@ Verify backup logs:
 kubectl logs job/<backup-job>
 ```
 
-> **Screenshot:** `docs/screenshots/cronjob-postgres-backup.png`
 
 ---
 
@@ -119,7 +117,6 @@ List custom resources:
 kubectl get <custom-resource>
 ```
 
-> **Screenshot:** `docs/screenshots/crd-list.png`
 
 ---
 

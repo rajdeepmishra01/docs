@@ -37,7 +37,6 @@ Application Metrics
  Application Workloads
 ```
 
-> **Screenshot:** `screenshots/autoscaling-architecture.png`
 
 ---
 
@@ -65,7 +64,6 @@ Verify:
 kubectl get hpa -n todo-platform
 ```
 
-> **Screenshot:** `screenshots/hpa-list.png`
 
 ---
 
@@ -89,7 +87,6 @@ Verify:
 kubectl get vpa -A
 ```
 
-> **Screenshot:** `screenshots/vpa-recommendations.png`
 
 ---
 
@@ -104,7 +101,6 @@ kubectl top pods -A
 kubectl top nodes
 ```
 
-> **Screenshot:** `screenshots/metrics-server.png`
 
 ---
 

@@ -28,7 +28,6 @@ The **Todo Platform** uses Docker to containerize all application components, en
  Frontend  Auth Service  Todo Service  PostgreSQL
 ```
 
-> **Screenshot:** `docs/screenshots/docker-architecture.png`
 
 ---
 
@@ -71,7 +70,6 @@ todo-todo-service
 todo-postgres
 ```
 
-> **Screenshot:** `docs/screenshots/docker-containers.png`
 
 ---
 
@@ -102,7 +100,6 @@ Verify volumes:
 docker volume ls
 ```
 
-> **Screenshot:** `docs/screenshots/docker-volumes.png`
 
 ---
 
@@ -123,7 +120,6 @@ todo-service
 postgres
 ```
 
-> **Screenshot:** `docs/screenshots/docker-images.png`
 
 ---
 
@@ -144,7 +140,6 @@ curl http://localhost:5002/health
 }
 ```
 
-> **Screenshot:** `docs/screenshots/container-health.png`
 
 ---
 
@@ -167,8 +162,6 @@ FluxCD
        v
 Kubernetes Cluster
 ```
-
-> **Screenshot:** `docs/screenshots/ghcr-images.png`
 
 ---
 

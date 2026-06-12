@@ -29,7 +29,6 @@ docker rm -f todo-postgres
 docker compose up --build
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-docker-conflict.png`
 
 ---
 
@@ -51,7 +50,6 @@ Pull the image manually and retry deployment.
 docker pull postgres:15
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-postgres-pull.png`
 
 ---
 
@@ -76,7 +74,6 @@ docker pull ghcr.io/k3d-io/k3d-proxy:5.8.3
 k3d cluster create todo-platform
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-k3d.png`
 
 ---
 
@@ -95,7 +92,6 @@ kubectl get pvc
 kubectl get storageclass
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-pvc.png`
 
 ---
 
@@ -122,7 +118,6 @@ Verify status:
 flux get all
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-flux.png`
 
 ---
 
@@ -142,7 +137,6 @@ kubectl get imagepolicies -A
 kubectl get imageupdateautomations -A
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-image-automation.png`
 
 ---
 
@@ -164,7 +158,6 @@ kubectl get servicemonitors -A
 
 Verify all targets are marked **UP** in Prometheus.
 
-> **Screenshot:** `screenshots/troubleshoot-prometheus.png`
 
 ---
 
@@ -180,7 +173,6 @@ Grafana dashboards displayed empty panels.
 2. Validate Grafana datasource configuration.
 3. Refresh dashboards after metrics collection.
 
-> **Screenshot:** `screenshots/troubleshoot-grafana.png`
 
 ---
 
@@ -201,7 +193,6 @@ kubectl top pods -A
 kubectl get pods -n kube-system
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-hpa.png`
 
 ---
 
@@ -219,7 +210,6 @@ Generate application traffic and allow metrics collection time to run.
 kubectl describe vpa
 ```
 
-> **Screenshot:** `screenshots/troubleshoot-vpa.png`
 
 ---
 
@@ -241,7 +231,6 @@ cat coverage/lcov.info
 
 Ensure application files appear in the report.
 
-> **Screenshot:** `screenshots/troubleshoot-sonar.png`
 
 ---
 

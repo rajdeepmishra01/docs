@@ -37,7 +37,6 @@ Application Metrics           Application Logs
                   Grafana
 ```
 
-> **Screenshot:** `screenshots/monitoring-architecture.png`
 
 ---
 
@@ -51,7 +50,6 @@ Verify:
 kubectl get pods -n monitoring
 ```
 
-> **Screenshot:** `screenshots/monitoring-stack.png`
 
 ---
 
@@ -71,7 +69,6 @@ Verify:
 kubectl get servicemonitors -A
 ```
 
-> **Screenshot:** `screenshots/prometheus-targets.png`
 
 ---
 
@@ -85,7 +82,6 @@ Grafana provides dashboards for:
 - Pod Status
 - Application Metrics
 
-> **Screenshot:** `screenshots/grafana-dashboard.png`
 
 ---
 
@@ -112,7 +108,6 @@ Application Pods
 - Simplified Troubleshooting
 - Full Operational Visibility
 
-> **Screenshot:** `screenshots/loki-logs.png`
 
 ---
 

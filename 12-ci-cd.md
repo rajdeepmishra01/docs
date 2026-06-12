@@ -55,7 +55,6 @@ Flux Reconciliation
 Kubernetes Deployment
 ```
 
-> **Screenshot:** `screenshots/141-cicd-architecture.png`
 
 ---
 
@@ -73,7 +72,6 @@ The pipeline runs automatically on:
 .github/workflows/pipeline.yml
 ```
 
-> **Screenshot:** `screenshots/142-github-actions-workflow.png`
 
 ---
 
@@ -88,7 +86,6 @@ Code quality validation using ESLint.
 - Enforce coding standards
 - Detect syntax issues early
 
-> **Screenshot:** `screenshots/146-lint-stage.png`
 
 ---
 
@@ -103,7 +100,6 @@ Coverage reports are generated during execution.
 
 **Current Coverage:** `90%+`
 
-> **Screenshot:** `screenshots/148-coverage-report.png`
 
 ---
 
@@ -117,7 +113,6 @@ SonarCloud performs:
 
 The Quality Gate must pass before the pipeline proceeds.
 
-> **Screenshot:** `screenshots/149-sonarcloud-dashboard.png`
 
 ---
 
@@ -130,7 +125,6 @@ Container images are scanned for vulnerabilities before publishing.
 - Early vulnerability detection
 - Secure image delivery
 
-> **Screenshot:** `screenshots/151-trivy-scan.png`
 
 ---
 
@@ -150,7 +144,6 @@ ghcr.io/<owner>/auth-service:<tag>
 ghcr.io/<owner>/todo-service:<tag>
 ```
 
-> **Screenshot:** `screenshots/155-ghcr-images.png`
 
 ---
 
@@ -179,7 +172,6 @@ Kubernetes Cluster
 
 This approach ensures deployments remain fully GitOps-compliant.
 
-> **Screenshot:** `screenshots/156-gitops-integration.png`
 
 ---
 
@@ -193,7 +185,6 @@ Verify successful workflow execution:
 - Images available in GHCR
 - Flux detected and deployed updated image
 
-> **Screenshot:** `screenshots/158-pipeline-success.png`
 
 ---
 

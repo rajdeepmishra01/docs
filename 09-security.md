@@ -40,7 +40,6 @@ User
  PostgreSQL
 ```
 
-> **Screenshot:** `screenshots/security-architecture.png`
 
 ---
 
@@ -58,7 +57,6 @@ Verify:
 kubectl get roles,rolebindings -A
 ```
 
-> **Screenshot:** `screenshots/rbac.png`
 
 ---
 
@@ -83,7 +81,6 @@ Verify:
 kubectl get networkpolicy -A
 ```
 
-> **Screenshot:** `screenshots/network-policy.png`
 
 ---
 
@@ -102,7 +99,6 @@ Verify:
 kubectl get secrets -n todo-platform
 ```
 
-> **Screenshot:** `screenshots/secrets.png`
 
 ---
 
@@ -123,7 +119,6 @@ kubectl get clusterissuers
 kubectl get certificates -A
 ```
 
-> **Screenshot:** `screenshots/certificates.png`
 
 ---
 
@@ -147,7 +142,6 @@ kubectl get priorityclass
 kubectl get pdb -A
 ```
 
-> **Screenshot:** `screenshots/resource-governance.png`
 
 ---
 
@@ -161,7 +155,6 @@ Container images are scanned during CI/CD using Trivy.
 - Dependency Analysis
 - Secure Image Delivery
 
-> **Screenshot:** `screenshots/trivy-scan.png`
 
 ---
 

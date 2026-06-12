@@ -97,7 +97,6 @@ docker ps
 - `todo-service`
 - `postgres`
 
-> **Screenshot:** `docs/screenshots/docker-compose-up.png`
 
 ---
 
@@ -115,7 +114,6 @@ Verify the following flows:
 - User Login
 - Todo CRUD Operations
 
-> **Screenshot:** `docs/screenshots/local-application.png`
 
 ---
 
@@ -141,8 +139,6 @@ curl http://localhost:5002/health
 }
 ```
 
-> **Screenshot:** `docs/screenshots/api-health-checks.png`
-
 ---
 
 ## Database Persistence
@@ -156,7 +152,6 @@ docker compose up -d
 
 Previously created todo items should remain available after restart.
 
-> **Screenshot:** `docs/screenshots/database-persistence.png`
 
 ---
 

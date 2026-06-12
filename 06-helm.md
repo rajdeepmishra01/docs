@@ -29,7 +29,6 @@ helm-charts/
     +-- templates/
 ```
 
-> **Screenshot:** `screenshots/helm-chart-structure.png`
 
 ---
 
@@ -54,7 +53,6 @@ Deployment settings are managed through `values.yaml`:
 - Environment Variables
 - Autoscaling Configuration
 
-> **Screenshot:** `screenshots/values-yaml.png`
 
 ---
 
@@ -79,7 +77,6 @@ kubectl get ingress -n todo-platform
 kubectl get pvc -n todo-platform
 ```
 
-> **Screenshot:** `screenshots/helm-resources.png`
 
 ---
 
@@ -100,7 +97,6 @@ Verify:
 helm list -A
 ```
 
-> **Screenshot:** `screenshots/helm-release.png`
 
 ---
 
@@ -150,7 +146,6 @@ Kubernetes Resources
 
 This enables automated and version-controlled deployments.
 
-> **Screenshot:** `screenshots/helm-gitops.png`
 
 ---
 

@@ -50,8 +50,6 @@ Kubernetes Cluster
     +-- PostgreSQL
 ```
 
-> **Screenshot:** `docs/screenshots/platform-architecture.png`
-
 ---
 
 ## Project Objectives
