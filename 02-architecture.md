@@ -1,21 +1,24 @@
 # Architecture
 
+---
+
 ## Overview
 
-The Todo Platform is a cloud-native microservices application deployed on Kubernetes and managed through GitOps using FluxCD.
+The **Todo Platform** is a cloud-native microservices application deployed on Kubernetes and managed through GitOps using FluxCD.
 
 The platform consists of:
 
-* React Frontend
-* Auth Service
-* Todo Service
-* PostgreSQL
-* Kubernetes
-* Helm
-* FluxCD
-* Prometheus & Grafana
-* Loki Logging
-* GitHub Actions CI/CD
+| Layer          | Component            |
+| -------------- | -------------------- |
+| Frontend       | React Frontend       |
+| Authentication | Auth Service         |
+| Business Logic | Todo Service         |
+| Database       | PostgreSQL           |
+| Orchestration  | Kubernetes & Helm    |
+| Automation     | FluxCD               |
+| Observability  | Prometheus & Grafana |
+| Logging        | Loki                 |
+| CI/CD          | GitHub Actions       |
 
 ---
 
@@ -29,7 +32,7 @@ The platform consists of:
                                |
                                v
                       GitHub Actions CI/CD
-             (Lint → Test → Sonar → Trivy → Build)
+             (Lint -> Test -> Sonar -> Trivy -> Build)
                                |
                                v
                     GitHub Container Registry
@@ -45,33 +48,29 @@ The platform consists of:
                                |
                                v
 
-+---------------------------------------------------------+
-|                Kubernetes Cluster (k3d)                 |
-|                                                         |
-|  Ingress                                                |
-|     |                                                   |
-|     v                                                   |
-|  Frontend (React)                                       |
-|     |                                                   |
-|     +---------> Auth Service ----------+                |
-|     |                                  |                |
-|     +---------> Todo Service ----------+-----> PostgreSQL
-|                                                (PVC)    |
-|                                                         |
-|  Monitoring Stack                                       |
-|  Prometheus --> Grafana                                 |
-|  Vector -----> Loki -----> Grafana                      |
-|                                                         |
-|  Security & Operations                                  |
-|  RBAC | NetworkPolicy | TLS | HPA | VPA | CronJobs      |
-+---------------------------------------------------------+
++----------------------------------------------------------+
+|                Kubernetes Cluster (k3d)                  |
+|                                                          |
+|  Ingress                                                 |
+|     |                                                    |
+|     v                                                    |
+|  Frontend (React)                                        |
+|     |                                                    |
+|     +---------> Auth Service ----------+                 |
+|     |                                  |                 |
+|     +---------> Todo Service ----------+--> PostgreSQL   |
+|                                             (PVC)        |
+|                                                          |
+|  Monitoring Stack                                        |
+|  Prometheus --> Grafana                                  |
+|  Vector -----> Loki -----> Grafana                       |
+|                                                          |
+|  Security & Operations                                   |
+|  RBAC | NetworkPolicy | TLS | HPA | VPA | CronJobs       |
++----------------------------------------------------------+
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/platform-architecture.png
-```
+> **Screenshot:** `docs/screenshots/platform-architecture.png`
 
 ---
 
@@ -102,11 +101,7 @@ Frontend
   +----> Todo Service ----> PostgreSQL
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/application-flow.png
-```
+> **Screenshot:** `docs/screenshots/application-flow.png`
 
 ---
 
@@ -116,38 +111,29 @@ The platform runs on a multi-node k3d cluster.
 
 ```text
 k3d Cluster
-│
-├── Control Plane
-│
-├── Worker Node 1
-│
-└── Worker Node 2
+|
++-- Control Plane
++-- Worker Node 1
++-- Worker Node 2
 ```
 
-Namespaces:
+**Namespaces:**
 
-* todo-platform
-* todo-platform-dev
-* todo-platform-staging
-* monitoring
-* flux-system
+| Namespace               | Purpose                 |
+| ----------------------- | ----------------------- |
+| `todo-platform`         | Production workloads    |
+| `todo-platform-dev`     | Development environment |
+| `todo-platform-staging` | Staging environment     |
+| `monitoring`            | Observability stack     |
+| `flux-system`           | FluxCD controllers      |
 
-Implemented Resources:
+**Implemented Resources:**
 
-* Deployment
-* Service
-* Ingress
-* ConfigMap
-* Secret
-* PVC
-* HPA
-* NetworkPolicy
+- Deployment, Service, Ingress
+- ConfigMap, Secret, PVC
+- HPA, NetworkPolicy
 
-**Screenshot**
-
-```text
-docs/screenshots/kubernetes-architecture.png
-```
+> **Screenshot:** `docs/screenshots/kubernetes-architecture.png`
 
 ---
 
@@ -180,11 +166,7 @@ FluxCD
 Kubernetes Cluster
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/gitops-flow.png
-```
+> **Screenshot:** `docs/screenshots/gitops-flow.png`
 
 ---
 
@@ -193,34 +175,21 @@ docs/screenshots/gitops-flow.png
 Monitoring and logging are implemented using Prometheus, Grafana, Loki, and Vector.
 
 ```text
-Application Metrics
-        |
-        v
- ServiceMonitor
-        |
-        v
-   Prometheus
-        |
-        v
-     Grafana
-
-Application Logs
-        |
-        v
-      Vector
-        |
-        v
-       Loki
-        |
-        v
-     Grafana
+Application Metrics        Application Logs
+        |                          |
+        v                          v
+  ServiceMonitor               Vector
+        |                          |
+        v                          v
+   Prometheus                    Loki
+        |                          |
+        +------------+-------------+
+                     |
+                     v
+                  Grafana
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/observability-architecture.png
-```
+> **Screenshot:** `docs/screenshots/observability-architecture.png`
 
 ---
 
@@ -228,15 +197,15 @@ docs/screenshots/observability-architecture.png
 
 Security is implemented through multiple Kubernetes-native controls.
 
-Implemented Controls:
-
-* RBAC
-* Network Policies
-* Kubernetes Secrets
-* TLS Certificates
-* ResourceQuota
-* LimitRange
-* PodDisruptionBudget
+| Control             | Purpose                   |
+| ------------------- | ------------------------- |
+| RBAC                | Access Management         |
+| Network Policies    | Traffic Isolation         |
+| Kubernetes Secrets  | Sensitive Data Management |
+| TLS Certificates    | Encrypted Communication   |
+| ResourceQuota       | Resource Governance       |
+| LimitRange          | Container Resource Limits |
+| PodDisruptionBudget | High Availability         |
 
 ```text
 User
@@ -253,17 +222,3 @@ User
   |
  PostgreSQL
 ```
-
-**Screenshot**
-
-```text
-docs/screenshots/security-architecture.png
-```
-
----
-
-## Summary
-
-The Todo Platform combines microservices, Kubernetes, GitOps, observability, security, autoscaling, and CI/CD into a single cloud-native deployment platform.
-
-The architecture demonstrates a complete end-to-end DevOps workflow from code commit to automated Kubernetes deployment and operational monitoring.

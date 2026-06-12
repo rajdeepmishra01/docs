@@ -1,14 +1,18 @@
 # Autoscaling
 
+---
+
 ## Overview
 
-The Todo Platform implements Kubernetes autoscaling to automatically adapt to changing workloads.
+The **Todo Platform** implements Kubernetes autoscaling to automatically adapt to changing workloads.
 
-Implemented components:
+**Implemented Components:**
 
-* Horizontal Pod Autoscaler (HPA)
-* Vertical Pod Autoscaler (VPA)
-* Metrics Server
+| Component               | Purpose                             |
+| ----------------------- | ----------------------------------- |
+| Horizontal Pod Autoscaler (HPA) | Scale pod replicas on CPU load |
+| Vertical Pod Autoscaler (VPA)   | Recommend CPU/memory sizing    |
+| Metrics Server          | Provides resource usage metrics     |
 
 These components improve availability, scalability, and resource efficiency.
 
@@ -33,29 +37,21 @@ Application Metrics
  Application Workloads
 ```
 
-**Screenshot**
-
-![Autoscaling Architecture](screenshots/autoscaling-architecture.png)
+> **Screenshot:** `screenshots/autoscaling-architecture.png`
 
 ---
 
 ## Horizontal Pod Autoscaler (HPA)
 
-The platform uses HPA to automatically increase or decrease pod replicas based on CPU utilization.
+HPA automatically increases or decreases pod replicas based on CPU utilization.
 
-Configured Resources:
+**Configured resources:**
 
-* frontend-hpa
-* auth-service-hpa
-* todo-service-hpa
+- `frontend-hpa`
+- `auth-service-hpa`
+- `todo-service-hpa`
 
-Verify:
-
-```bash
-kubectl get hpa -n todo-platform
-```
-
-Example Configuration:
+**Example configuration:**
 
 ```yaml
 minReplicas: 2
@@ -63,9 +59,13 @@ maxReplicas: 10
 averageUtilization: 50
 ```
 
-**Screenshot**
+Verify:
 
-![HPA Resources](screenshots/hpa-list.png)
+```bash
+kubectl get hpa -n todo-platform
+```
+
+> **Screenshot:** `screenshots/hpa-list.png`
 
 ---
 
@@ -73,19 +73,15 @@ averageUtilization: 50
 
 VPA analyzes workload resource consumption and provides CPU and memory recommendations.
 
-Configured Resource:
+**Configured resource:** `todo-service-vpa`
 
-```text
-todo-service-vpa
-```
-
-Current Mode:
+**Current mode:**
 
 ```yaml
 updateMode: Off
 ```
 
-This allows safe evaluation of recommendations without automatically modifying workloads.
+This allows safe evaluation of recommendations without automatically modifying running workloads.
 
 Verify:
 
@@ -93,9 +89,7 @@ Verify:
 kubectl get vpa -A
 ```
 
-**Screenshot**
-
-![VPA Recommendations](screenshots/vpa-recommendations.png)
+> **Screenshot:** `screenshots/vpa-recommendations.png`
 
 ---
 
@@ -110,15 +104,11 @@ kubectl top pods -A
 kubectl top nodes
 ```
 
-**Screenshot**
-
-![Metrics Server](screenshots/metrics-server.png)
+> **Screenshot:** `screenshots/metrics-server.png`
 
 ---
 
-## Validation
-
-Verify autoscaling resources:
+## Validation Commands
 
 ```bash
 kubectl get hpa -A
@@ -132,13 +122,13 @@ kubectl top pods -A
 
 | Component                | Status |
 | ------------------------ | ------ |
-| Metrics Server           | ✅      |
-| HPA                      | ✅      |
-| frontend-hpa             | ✅      |
-| auth-service-hpa         | ✅      |
-| todo-service-hpa         | ✅      |
-| VPA                      | ✅      |
-| Resource Recommendations | ✅      |
+| Metrics Server           | Yes    |
+| HPA                      | Yes    |
+| frontend-hpa             | Yes    |
+| auth-service-hpa         | Yes    |
+| todo-service-hpa         | Yes    |
+| VPA                      | Yes    |
+| Resource Recommendations | Yes    |
 
 ---
 

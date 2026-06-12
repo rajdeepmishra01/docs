@@ -1,22 +1,18 @@
 # Helm
 
+---
+
 ## Overview
 
-The Todo Platform uses Helm to package, configure, and deploy Kubernetes resources.
+The **Todo Platform** uses Helm to package, configure, and deploy Kubernetes resources.
 
 Instead of managing individual YAML files, Helm templates generate all required resources using centralized configuration stored in `values.yaml`.
 
-### Managed Resources
+**Managed Resources:**
 
-- Frontend
-- Auth Service
-- Todo Service
-- PostgreSQL
-- Services
-- ConfigMaps
-- Secrets
-- Ingress
-- PersistentVolumeClaims
+- Frontend, Auth Service, Todo Service, PostgreSQL
+- Services, ConfigMaps, Secrets
+- Ingress, PersistentVolumeClaims
 - Horizontal Pod Autoscalers
 
 ---
@@ -27,15 +23,13 @@ The application is packaged as a reusable Helm chart.
 
 ```text
 helm-charts/
-└── todo-platform/
-    ├── Chart.yaml
-    ├── values.yaml
-    └── templates/
++-- todo-platform/
+    +-- Chart.yaml
+    +-- values.yaml
+    +-- templates/
 ```
 
-**Screenshot**
-
-![Helm Chart Structure](screenshots/helm-chart-structure.png)
+> **Screenshot:** `screenshots/helm-chart-structure.png`
 
 ---
 
@@ -43,13 +37,7 @@ helm-charts/
 
 ### Chart Metadata
 
-Chart information is defined in:
-
-```text
-Chart.yaml
-```
-
-Example:
+Chart information is defined in `Chart.yaml`:
 
 ```yaml
 apiVersion: v2
@@ -59,38 +47,28 @@ version: 1.0.0
 
 ### Environment Configuration
 
-Deployment settings are managed through:
-
-```text
-values.yaml
-```
-
-Examples:
+Deployment settings are managed through `values.yaml`:
 
 - Replica Counts
 - Resource Limits
 - Environment Variables
 - Autoscaling Configuration
 
-**Screenshot**
-
-![Values Configuration](screenshots/values-yaml.png)
+> **Screenshot:** `screenshots/values-yaml.png`
 
 ---
 
 ## Resources Managed by Helm
 
-The chart generates the following Kubernetes resources:
-
-| Resource | Purpose |
-|-----------|----------|
-| Deployment | Application Workloads |
-| Service | Internal Communication |
-| ConfigMap | Configuration |
-| Secret | Sensitive Data |
-| PVC | Persistent Storage |
-| Ingress | External Access |
-| HPA | Autoscaling |
+| Resource   | Purpose                 |
+| ---------- | ----------------------- |
+| Deployment | Application Workloads   |
+| Service    | Internal Communication  |
+| ConfigMap  | Configuration           |
+| Secret     | Sensitive Data          |
+| PVC        | Persistent Storage      |
+| Ingress    | External Access         |
+| HPA        | Autoscaling             |
 
 Verify:
 
@@ -101,9 +79,7 @@ kubectl get ingress -n todo-platform
 kubectl get pvc -n todo-platform
 ```
 
-**Screenshot**
-
-![Helm Resources](screenshots/helm-resources.png)
+> **Screenshot:** `screenshots/helm-resources.png`
 
 ---
 
@@ -113,9 +89,9 @@ Install the application:
 
 ```bash
 helm install todo-platform \
-./helm-charts/todo-platform \
--n todo-platform \
---create-namespace
+  ./helm-charts/todo-platform \
+  -n todo-platform \
+  --create-namespace
 ```
 
 Verify:
@@ -124,31 +100,27 @@ Verify:
 helm list -A
 ```
 
-**Screenshot**
-
-![Helm Release](screenshots/helm-release.png)
+> **Screenshot:** `screenshots/helm-release.png`
 
 ---
 
 ## Upgrade & Rollback
 
-Helm supports controlled application upgrades and rollback.
-
-Upgrade:
+**Upgrade:**
 
 ```bash
 helm upgrade todo-platform \
-./helm-charts/todo-platform \
--n todo-platform
+  ./helm-charts/todo-platform \
+  -n todo-platform
 ```
 
-Rollback:
+**Rollback:**
 
 ```bash
 helm rollback todo-platform <revision>
 ```
 
-Verify:
+**Verify history:**
 
 ```bash
 helm history todo-platform -n todo-platform
@@ -178,21 +150,15 @@ Kubernetes Resources
 
 This enables automated and version-controlled deployments.
 
-**Screenshot**
-
-![Helm GitOps Integration](screenshots/helm-gitops.png)
+> **Screenshot:** `screenshots/helm-gitops.png`
 
 ---
 
-## Validation
-
-Verify Helm resources:
+## Validation Commands
 
 ```bash
 helm list -A
-
 helm status todo-platform -n todo-platform
-
 helm history todo-platform -n todo-platform
 ```
 
@@ -200,21 +166,21 @@ helm history todo-platform -n todo-platform
 
 ## Deliverables
 
-| Component | Status |
-|------------|---------|
-| Chart.yaml | ✅ |
-| values.yaml | ✅ |
-| Templates | ✅ |
-| Deployments | ✅ |
-| Services | ✅ |
-| ConfigMaps | ✅ |
-| Secrets | ✅ |
-| PVC | ✅ |
-| Ingress | ✅ |
-| HPA | ✅ |
-| Install | ✅ |
-| Upgrade | ✅ |
-| Rollback | ✅ |
+| Component   | Status |
+| ----------- | ------ |
+| Chart.yaml  | Yes    |
+| values.yaml | Yes    |
+| Templates   | Yes    |
+| Deployments | Yes    |
+| Services    | Yes    |
+| ConfigMaps  | Yes    |
+| Secrets     | Yes    |
+| PVC         | Yes    |
+| Ingress     | Yes    |
+| HPA         | Yes    |
+| Install     | Yes    |
+| Upgrade     | Yes    |
+| Rollback    | Yes    |
 
 ---
 

@@ -1,8 +1,10 @@
 # Local Development
 
+---
+
 ## Overview
 
-The Todo Platform can be executed locally using Docker Compose before deployment to Kubernetes.
+The **Todo Platform** can be executed locally using Docker Compose before deployment to Kubernetes.
 
 The local environment consists of:
 
@@ -17,15 +19,13 @@ This setup allows developers to validate application functionality and API integ
 
 ## Prerequisites
 
-Install the following tools:
+| Tool           | Required |
+| -------------- | -------- |
+| Docker         | Yes      |
+| Docker Compose | Yes      |
+| Git            | Yes      |
 
-| Tool | Required |
-|--------|----------|
-| Docker | ✅ |
-| Docker Compose | ✅ |
-| Git | ✅ |
-
-Verify:
+Verify installations:
 
 ```bash
 docker --version
@@ -39,14 +39,14 @@ git --version
 
 ```text
 major-assignment-app/
-│
-├── apps/
-│   ├── frontend/
-│   ├── auth-service/
-│   ├── todo-service/
-│   └── database/
-│
-└── docker-compose.yml
+|
++-- apps/
+|   +-- frontend/
+|   +-- auth-service/
+|   +-- todo-service/
+|   +-- database/
+|
++-- docker-compose.yml
 ```
 
 ---
@@ -67,7 +67,7 @@ apps/auth-service/.env
 apps/todo-service/.env
 ```
 
-Example:
+**Example:**
 
 ```env
 DATABASE_URL=postgres://postgres:postgres@postgres:5432/todoapp
@@ -90,58 +90,50 @@ Verify running containers:
 docker ps
 ```
 
-Expected Services:
+**Expected services:**
 
-- frontend
-- auth-service
-- todo-service
-- postgres
+- `frontend`
+- `auth-service`
+- `todo-service`
+- `postgres`
 
-**Screenshot**
-
-```text
-docs/screenshots/docker-compose-up.png
-```
+> **Screenshot:** `docs/screenshots/docker-compose-up.png`
 
 ---
 
 ## Application Validation
 
-Frontend:
+Access the frontend at:
 
 ```text
 http://localhost:5173
 ```
 
-Verify:
+Verify the following flows:
 
 - User Registration
 - User Login
 - Todo CRUD Operations
 
-**Screenshot**
-
-```text
-docs/screenshots/local-application.png
-```
+> **Screenshot:** `docs/screenshots/local-application.png`
 
 ---
 
 ## API Health Checks
 
-Auth Service:
+**Auth Service:**
 
 ```bash
 curl http://localhost:5001/health
 ```
 
-Todo Service:
+**Todo Service:**
 
 ```bash
 curl http://localhost:5002/health
 ```
 
-Expected Response:
+**Expected Response:**
 
 ```json
 {
@@ -149,31 +141,22 @@ Expected Response:
 }
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/api-health-checks.png
-```
+> **Screenshot:** `docs/screenshots/api-health-checks.png`
 
 ---
 
 ## Database Persistence
 
-Verify PostgreSQL persistence:
+Verify PostgreSQL persistence across container restarts:
 
 ```bash
 docker compose down
-
 docker compose up -d
 ```
 
 Previously created todo items should remain available after restart.
 
-**Screenshot**
-
-```text
-docs/screenshots/database-persistence.png
-```
+> **Screenshot:** `docs/screenshots/database-persistence.png`
 
 ---
 
@@ -197,35 +180,3 @@ GitHub Actions
      v
 Kubernetes Deployment
 ```
-
----
-
-## Validation
-
-Verify local environment:
-
-```bash
-docker ps
-
-docker compose ps
-```
-
----
-
-## Deliverables
-
-| Component | Status |
-|------------|---------|
-| Docker Compose | ✅ |
-| Frontend | ✅ |
-| Auth Service | ✅ |
-| Todo Service | ✅ |
-| PostgreSQL | ✅ |
-| Health Checks | ✅ |
-| Database Persistence | ✅ |
-
----
-
-## Summary
-
-The local development environment provides a complete setup for developing and validating the Todo Platform before deployment. Docker Compose ensures all services run consistently and mirrors the containerized architecture later deployed to Kubernetes.

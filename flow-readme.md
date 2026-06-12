@@ -1,41 +1,41 @@
 # End-to-End Project Flow
 
+---
+
 ## Overview
 
-This document provides a visual walkthrough of the complete Todo Platform implementation.
+This document provides a visual walkthrough of the complete **Todo Platform** implementation.
 
 The goal is to demonstrate the end-to-end lifecycle of the platform, beginning from local development and ending with GitOps-driven deployment, monitoring, security, autoscaling, and operational automation.
 
 ---
 
-# Step 1: Project Repository Structure
+## Step 1 — Project Repository Structure
 
 The project follows a microservices architecture.
 
-Components:
+**Components:**
 
-* Frontend
-* Auth Service
-* Todo Service
-* PostgreSQL
-* Helm Charts
-* GitOps Repository
-* Documentation
+- Frontend
+- Auth Service
+- Todo Service
+- PostgreSQL
+- Helm Charts
+- GitOps Repository
+- Documentation
 
 ---
 
-# Step 2: Local Development Environment
+## Step 2 — Local Development Environment
 
 The platform was first executed locally using Docker Compose.
 
-Services:
+**Services:**
 
-* Frontend
-* Auth Service
-* Todo Service
-* PostgreSQL
-
-Command:
+- Frontend
+- Auth Service
+- Todo Service
+- PostgreSQL
 
 ```bash
 docker compose up --build
@@ -43,17 +43,15 @@ docker compose up --build
 
 ---
 
-# Step 3: Docker Images
+## Step 3 — Docker Images
 
 Each component was containerized using Docker.
 
-Images:
+**Images:**
 
-* frontend
-* auth-service
-* todo-service
-
-Verify:
+- `frontend`
+- `auth-service`
+- `todo-service`
 
 ```bash
 docker images
@@ -61,18 +59,14 @@ docker images
 
 ---
 
-# Step 4: Kubernetes Cluster Creation
+## Step 4 — Kubernetes Cluster Creation
 
 A multi-node Kubernetes cluster was created using k3d.
-
-Cluster:
 
 ```text
 1 Control Plane
 2 Worker Nodes
 ```
-
-Verify:
 
 ```bash
 kubectl get nodes -o wide
@@ -80,11 +74,9 @@ kubectl get nodes -o wide
 
 ---
 
-# Step 5: Namespace Creation
+## Step 5 — Namespace Creation
 
 Dedicated namespaces were created for environment isolation.
-
-Namespaces:
 
 ```text
 todo-platform-dev
@@ -93,26 +85,22 @@ monitoring
 flux-system
 ```
 
-Verify:
-
 ```bash
 kubectl get ns
 ```
 
 ---
 
-# Step 6: Kubernetes Deployments
+## Step 6 — Kubernetes Deployments
 
 Application services were deployed into Kubernetes.
 
-Deployments:
+**Deployments:**
 
-* frontend
-* auth-service
-* todo-service
-* postgres
-
-Verify:
+- `frontend`
+- `auth-service`
+- `todo-service`
+- `postgres`
 
 ```bash
 kubectl get deployments -A
@@ -120,11 +108,9 @@ kubectl get deployments -A
 
 ---
 
-# Step 7: Running Pods
+## Step 7 — Running Pods
 
 Kubernetes created and managed application pods.
-
-Verify:
 
 ```bash
 kubectl get pods -A
@@ -132,17 +118,9 @@ kubectl get pods -A
 
 ---
 
-# Step 8: Persistent Storage
+## Step 8 — Persistent Storage
 
-Persistent storage was configured for PostgreSQL.
-
-Resource:
-
-```text
-PersistentVolumeClaim
-```
-
-Verify:
+Persistent storage was configured for PostgreSQL using a PersistentVolumeClaim.
 
 ```bash
 kubectl get pvc -A
@@ -150,11 +128,9 @@ kubectl get pvc -A
 
 ---
 
-# Step 9: Application Access Through Ingress
+## Step 9 — Application Access Through Ingress
 
-Ingress was configured to expose the application.
-
-Verify:
+Ingress was configured to expose the application externally.
 
 ```bash
 kubectl get ingress -A
@@ -162,26 +138,21 @@ kubectl get ingress -A
 
 ---
 
-# Step 10: Helm Packaging
+## Step 10 — Helm Packaging
 
 The application was packaged as a Helm chart.
 
-Components Managed:
+**Components managed:**
 
-* Deployments
-* Services
-* ConfigMaps
-* Secrets
-* PVCs
-* HPAs
+- Deployments, Services
+- ConfigMaps, Secrets
+- PVCs, HPAs
 
 ---
 
-# Step 11: Helm Deployment
+## Step 11 — Helm Deployment
 
 The Helm chart was deployed into Kubernetes.
-
-Verify:
 
 ```bash
 helm list -A
@@ -189,11 +160,9 @@ helm list -A
 
 ---
 
-# Step 12: FluxCD Installation
+## Step 12 — FluxCD Installation
 
 FluxCD was installed to enable GitOps.
-
-Verify:
 
 ```bash
 kubectl get pods -n flux-system
@@ -201,25 +170,23 @@ kubectl get pods -n flux-system
 
 ---
 
-# Step 13: GitOps Repository
+## Step 13 — GitOps Repository
 
 The GitOps repository stores the desired cluster state.
 
-Contents:
+**Contents:**
 
-* HelmRelease
-* Kustomization
-* Infrastructure
-* Monitoring
-* Security
+- HelmRelease
+- Kustomization
+- Infrastructure
+- Monitoring
+- Security
 
 ---
 
-# Step 14: Flux Sources
+## Step 14 — Flux Sources
 
 Flux monitors Git repositories through GitRepository resources.
-
-Verify:
 
 ```bash
 flux get sources git
@@ -227,11 +194,9 @@ flux get sources git
 
 ---
 
-# Step 15: Kustomizations
+## Step 15 — Kustomizations
 
 Flux applies resources through Kustomizations.
-
-Verify:
 
 ```bash
 flux get kustomizations -A
@@ -239,11 +204,9 @@ flux get kustomizations -A
 
 ---
 
-# Step 16: Helm Releases
+## Step 16 — Helm Releases
 
 Flux deploys applications using HelmRelease resources.
-
-Verify:
 
 ```bash
 flux get helmreleases -A
@@ -251,17 +214,15 @@ flux get helmreleases -A
 
 ---
 
-# Step 17: Image Automation
+## Step 17 — Image Automation
 
 Flux Image Automation manages container image updates.
 
-Components:
+**Components:**
 
-* ImageRepository
-* ImagePolicy
-* ImageUpdateAutomation
-
-Verify:
+- ImageRepository
+- ImagePolicy
+- ImageUpdateAutomation
 
 ```bash
 kubectl get imagerepositories,imagepolicies,imageupdateautomations -A
@@ -269,14 +230,9 @@ kubectl get imagerepositories,imagepolicies,imageupdateautomations -A
 
 ---
 
-# Step 18: Monitoring Stack
+## Step 18 — Monitoring Stack
 
-Monitoring was implemented using:
-
-* Prometheus
-* Grafana
-
-Verify:
+Monitoring was implemented using Prometheus and Grafana.
 
 ```bash
 kubectl get pods -n monitoring
@@ -284,45 +240,36 @@ kubectl get pods -n monitoring
 
 ---
 
-# Step 19: Prometheus Targets
+## Step 19 — Prometheus Targets
 
 Prometheus successfully discovered monitored services.
 
-Expected:
-
-```text
-UP
-```
+**Expected status:** `UP`
 
 ---
 
-# Step 20: Grafana Dashboards
+## Step 20 — Grafana Dashboards
 
 Grafana provides cluster and application dashboards.
 
 ---
 
-# Step 21: Centralized Logging
+## Step 21 — Centralized Logging
 
-Centralized logging was implemented using:
-
-* Loki
-* Vector
+Centralized logging was implemented using Loki and Vector.
 
 ---
 
-# Step 22: Security Controls
+## Step 22 — Security Controls
 
-Implemented:
+**Implemented controls:**
 
-* RBAC
-* Network Policies
-* TLS
-* ResourceQuota
-* LimitRange
-* PDB
-
-Verify:
+- RBAC
+- Network Policies
+- TLS
+- ResourceQuota
+- LimitRange
+- PodDisruptionBudget
 
 ```bash
 kubectl get networkpolicy -A
@@ -330,14 +277,12 @@ kubectl get networkpolicy -A
 
 ---
 
-# Step 23: Autoscaling
+## Step 23 — Autoscaling
 
-Implemented:
+**Implemented:**
 
-* Horizontal Pod Autoscaler
-* Vertical Pod Autoscaler
-
-Verify:
+- Horizontal Pod Autoscaler (HPA)
+- Vertical Pod Autoscaler (VPA)
 
 ```bash
 kubectl get hpa -A
@@ -346,14 +291,12 @@ kubectl get vpa -A
 
 ---
 
-# Step 24: CronJobs and Jobs
+## Step 24 — CronJobs and Jobs
 
-Implemented:
+**Implemented:**
 
-* PostgreSQL Backup CronJob
-* Parallel Job
-
-Verify:
+- PostgreSQL Backup CronJob
+- Parallel Job
 
 ```bash
 kubectl get cronjobs -A
@@ -362,11 +305,9 @@ kubectl get jobs -A
 
 ---
 
-# Step 25: Custom Resource Definitions
+## Step 25 — Custom Resource Definitions
 
 Custom Resource Definitions were implemented to demonstrate Kubernetes extensibility.
-
-Verify:
 
 ```bash
 kubectl get crd
@@ -374,39 +315,38 @@ kubectl get crd
 
 ---
 
-# Step 26: GitHub Actions Pipeline
+## Step 26 — GitHub Actions Pipeline
 
-CI/CD pipeline stages:
+**CI/CD pipeline stages:**
 
-* Lint
-* Test
-* Coverage
-* SonarCloud
-* Trivy
-* Docker Build
-* GHCR Push
-
----
-
-# Step 27: SonarCloud Analysis
-
-Code quality analysis and quality gates.
+- Lint
+- Test & Coverage
+- SonarCloud Analysis
+- Trivy Security Scan
+- Docker Build
+- GHCR Push
 
 ---
 
-# Step 28: Trivy Security Scanning
+## Step 27 — SonarCloud Analysis
 
-Container images were scanned for vulnerabilities.
-
----
-
-# Step 29: GitHub Container Registry
-
-Images are published to GHCR.
+Code quality analysis and quality gates were validated.
 
 ---
 
-# Step 30: End-to-End GitOps Deployment
+## Step 28 — Trivy Security Scanning
+
+Container images were scanned for vulnerabilities before publishing.
+
+---
+
+## Step 29 — GitHub Container Registry
+
+All application images are published to GHCR.
+
+---
+
+## Step 30 — End-to-End GitOps Deployment
 
 Final deployment workflow:
 
@@ -440,38 +380,27 @@ Kubernetes Deployment
 
 ---
 
-# Final Platform State
+## Final Platform State
 
-The platform successfully demonstrates:
-
-✅ Microservices Architecture
-
-✅ Docker Containerization
-
-✅ Kubernetes Deployment
-
-✅ Helm Packaging
-
-✅ GitOps with FluxCD
-
-✅ Image Automation
-
-✅ Monitoring and Logging
-
-✅ Security Controls
-
-✅ Autoscaling
-
-✅ CronJobs and Jobs
-
-✅ CRDs
-
-✅ CI/CD Automation
+| Capability              | Status |
+| ----------------------- | ------ |
+| Microservices Architecture | Yes |
+| Docker Containerization | Yes    |
+| Kubernetes Deployment   | Yes    |
+| Helm Packaging          | Yes    |
+| GitOps with FluxCD      | Yes    |
+| Image Automation        | Yes    |
+| Monitoring and Logging  | Yes    |
+| Security Controls       | Yes    |
+| Autoscaling             | Yes    |
+| CronJobs and Jobs       | Yes    |
+| CRDs                    | Yes    |
+| CI/CD Automation        | Yes    |
 
 ---
 
-# Conclusion
+## Conclusion
 
-The Todo Platform represents a complete cloud-native DevOps implementation built around Kubernetes and GitOps principles.
+The **Todo Platform** represents a complete cloud-native DevOps implementation built around Kubernetes and GitOps principles.
 
 The project demonstrates the full lifecycle of modern application delivery, from development and containerization to deployment, observability, security, autoscaling, and automated operations.

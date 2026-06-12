@@ -1,15 +1,19 @@
 # Docker Setup
 
+---
+
 ## Overview
 
-The Todo Platform uses Docker to containerize all application components, ensuring consistency across development, CI/CD, and Kubernetes environments.
+The **Todo Platform** uses Docker to containerize all application components, ensuring consistency across development, CI/CD, and Kubernetes environments.
 
-### Containerized Services
+**Containerized Services:**
 
-- Frontend (React + Vite)
-- Auth Service (Node.js)
-- Todo Service (Node.js)
-- PostgreSQL
+| Service       | Technology      |
+| ------------- | --------------- |
+| Frontend      | React + Vite    |
+| Auth Service  | Node.js         |
+| Todo Service  | Node.js         |
+| PostgreSQL    | PostgreSQL      |
 
 ---
 
@@ -18,18 +22,13 @@ The Todo Platform uses Docker to containerize all application components, ensuri
 ```text
                 Docker Network
                        |
-    -----------------------------------------
-    |              |              |         |
-    v              v              v         v
-
- Frontend    Auth Service   Todo Service  PostgreSQL
+    +------------------+------------------+
+    |          |               |           |
+    v          v               v           v
+ Frontend  Auth Service  Todo Service  PostgreSQL
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/docker-architecture.png
-```
+> **Screenshot:** `docs/screenshots/docker-architecture.png`
 
 ---
 
@@ -39,10 +38,10 @@ Each application component contains its own Dockerfile.
 
 ```text
 apps/
-├── frontend/
-├── auth-service/
-├── todo-service/
-└── database/
++-- frontend/
++-- auth-service/
++-- todo-service/
++-- database/
 ```
 
 Docker Compose is used to orchestrate all containers during local development.
@@ -63,7 +62,7 @@ Verify running containers:
 docker ps
 ```
 
-Expected Containers:
+**Expected containers:**
 
 ```text
 todo-frontend
@@ -72,30 +71,24 @@ todo-todo-service
 todo-postgres
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/docker-containers.png
-```
+> **Screenshot:** `docs/screenshots/docker-containers.png`
 
 ---
 
 ## Container Networking
 
-Containers communicate through a shared Docker network.
+Containers communicate through a shared Docker network, enabling service discovery without exposing internal services externally.
 
 ```text
 Frontend
     |
-    +--> Auth Service
+    +----> Auth Service
     |
-    +--> Todo Service
-             |
-             v
-        PostgreSQL
+    +----> Todo Service
+                |
+                v
+           PostgreSQL
 ```
-
-This enables service discovery without exposing internal services externally.
 
 ---
 
@@ -103,17 +96,13 @@ This enables service discovery without exposing internal services externally.
 
 PostgreSQL uses Docker volumes to persist data across container restarts.
 
-Verify:
+Verify volumes:
 
 ```bash
 docker volume ls
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/docker-volumes.png
-```
+> **Screenshot:** `docs/screenshots/docker-volumes.png`
 
 ---
 
@@ -125,7 +114,7 @@ Verify locally built images:
 docker images
 ```
 
-Expected Images:
+**Expected images:**
 
 ```text
 frontend
@@ -134,25 +123,20 @@ todo-service
 postgres
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/docker-images.png
-```
+> **Screenshot:** `docs/screenshots/docker-images.png`
 
 ---
 
-## Container Validation
+## Container Health Validation
 
 Verify service health:
 
 ```bash
 curl http://localhost:5001/health
-
 curl http://localhost:5002/health
 ```
 
-Expected Response:
+**Expected Response:**
 
 ```json
 {
@@ -160,17 +144,13 @@ Expected Response:
 }
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/container-health.png
-```
+> **Screenshot:** `docs/screenshots/container-health.png`
 
 ---
 
 ## Docker & GitOps Workflow
 
-The Docker images created during development are published to GitHub Container Registry (GHCR) and later deployed through FluxCD.
+Docker images created during development are published to GitHub Container Registry (GHCR) and deployed through FluxCD.
 
 ```text
 Application Code
@@ -188,23 +168,15 @@ FluxCD
 Kubernetes Cluster
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/ghcr-images.png
-```
+> **Screenshot:** `docs/screenshots/ghcr-images.png`
 
 ---
 
-## Validation
-
-Verify Docker resources:
+## Validation Commands
 
 ```bash
 docker ps
-
 docker images
-
 docker volume ls
 ```
 
@@ -212,17 +184,17 @@ docker volume ls
 
 ## Deliverables
 
-| Component | Status |
-|------------|---------|
-| Dockerfiles | ✅ |
-| Docker Compose | ✅ |
-| Frontend Container | ✅ |
-| Auth Service Container | ✅ |
-| Todo Service Container | ✅ |
-| PostgreSQL Container | ✅ |
-| Networking | ✅ |
-| Volumes | ✅ |
-| Image Build | ✅ |
+| Component              | Status |
+| ---------------------- | ------ |
+| Dockerfiles            | Yes    |
+| Docker Compose         | Yes    |
+| Frontend Container     | Yes    |
+| Auth Service Container | Yes    |
+| Todo Service Container | Yes    |
+| PostgreSQL Container   | Yes    |
+| Networking             | Yes    |
+| Volumes                | Yes    |
+| Image Build            | Yes    |
 
 ---
 

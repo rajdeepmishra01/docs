@@ -1,58 +1,49 @@
 # Monitoring and Observability
 
+---
+
 ## Overview
 
-The Todo Platform implements a complete observability stack for monitoring application performance, infrastructure health, and centralized logging.
+The **Todo Platform** implements a complete observability stack for monitoring application performance, infrastructure health, and centralized logging.
 
-### Monitoring Stack
+**Monitoring Stack:**
 
-* Prometheus
-* Grafana
-* ServiceMonitor
-* Loki
-* Vector
-* Node Exporter
-* Kube State Metrics
+| Component          | Purpose            |
+| ------------------ | ------------------ |
+| Prometheus         | Metrics Collection |
+| Grafana            | Visualization      |
+| ServiceMonitor     | Service Discovery  |
+| Loki               | Log Storage        |
+| Vector             | Log Collection     |
+| Node Exporter      | Node Metrics       |
+| Kube State Metrics | Kubernetes Metrics |
 
 ---
 
 ## Observability Architecture
 
 ```text
-Application Metrics
-        |
-        v
- ServiceMonitor
-        |
-        v
-   Prometheus
-        |
-        v
-     Grafana
-
-------------------------
-
- Application Logs
-        |
-        v
-      Vector
-        |
-        v
-       Loki
-        |
-        v
- Grafana Explore
+Application Metrics           Application Logs
+        |                            |
+        v                            v
+  ServiceMonitor                  Vector
+        |                            |
+        v                            v
+   Prometheus                       Loki
+        |                            |
+        +------------+---------------+
+                     |
+                     v
+                  Grafana
 ```
 
-**Screenshot**
-
-![Monitoring Architecture](screenshots/monitoring-architecture.png)
+> **Screenshot:** `screenshots/monitoring-architecture.png`
 
 ---
 
-## Monitoring Stack
+## Monitoring Namespace
 
-The monitoring components run inside the dedicated `monitoring` namespace.
+All monitoring components run inside the dedicated `monitoring` namespace.
 
 Verify:
 
@@ -60,20 +51,7 @@ Verify:
 kubectl get pods -n monitoring
 ```
 
-Implemented Components:
-
-| Component          | Purpose            |
-| ------------------ | ------------------ |
-| Prometheus         | Metrics Collection |
-| Grafana            | Visualization      |
-| Loki               | Log Storage        |
-| Vector             | Log Collection     |
-| Node Exporter      | Node Metrics       |
-| Kube State Metrics | Kubernetes Metrics |
-
-**Screenshot**
-
-![Monitoring Namespace](screenshots/monitoring-stack.png)
+> **Screenshot:** `screenshots/monitoring-stack.png`
 
 ---
 
@@ -81,9 +59,9 @@ Implemented Components:
 
 Prometheus collects metrics from:
 
-* Kubernetes Cluster
-* Application Services
-* Infrastructure Components
+- Kubernetes Cluster
+- Application Services
+- Infrastructure Components
 
 Service discovery is handled through ServiceMonitor resources.
 
@@ -93,9 +71,7 @@ Verify:
 kubectl get servicemonitors -A
 ```
 
-**Screenshot**
-
-![Prometheus Targets](screenshots/prometheus-targets.png)
+> **Screenshot:** `screenshots/prometheus-targets.png`
 
 ---
 
@@ -103,23 +79,19 @@ kubectl get servicemonitors -A
 
 Grafana provides dashboards for:
 
-* Cluster Health
-* CPU Usage
-* Memory Usage
-* Pod Status
-* Application Metrics
+- Cluster Health
+- CPU Usage
+- Memory Usage
+- Pod Status
+- Application Metrics
 
-**Screenshot**
-
-![Grafana Dashboard](screenshots/grafana-dashboard.png)
+> **Screenshot:** `screenshots/grafana-dashboard.png`
 
 ---
 
 ## Centralized Logging
 
 Logs are collected using Vector and stored in Loki.
-
-Log Flow:
 
 ```text
 Application Pods
@@ -134,21 +106,17 @@ Application Pods
  Grafana Explore
 ```
 
-Benefits:
+**Benefits:**
 
-* Centralized Log Management
-* Troubleshooting
-* Operational Visibility
+- Centralized Log Management
+- Simplified Troubleshooting
+- Full Operational Visibility
 
-**Screenshot**
-
-![Loki Logs](screenshots/loki-logs.png)
+> **Screenshot:** `screenshots/loki-logs.png`
 
 ---
 
-## Validation
-
-Verify monitoring resources:
+## Validation Commands
 
 ```bash
 kubectl get pods -n monitoring
@@ -162,15 +130,15 @@ kubectl get daemonsets -A
 
 | Component          | Status |
 | ------------------ | ------ |
-| Prometheus         | ✅      |
-| Grafana            | ✅      |
-| ServiceMonitor     | ✅      |
-| Node Exporter      | ✅      |
-| Kube State Metrics | ✅      |
-| Loki               | ✅      |
-| Vector             | ✅      |
-| Dashboards         | ✅      |
-| Log Aggregation    | ✅      |
+| Prometheus         | Yes    |
+| Grafana            | Yes    |
+| ServiceMonitor     | Yes    |
+| Node Exporter      | Yes    |
+| Kube State Metrics | Yes    |
+| Loki               | Yes    |
+| Vector             | Yes    |
+| Dashboards         | Yes    |
+| Log Aggregation    | Yes    |
 
 ---
 

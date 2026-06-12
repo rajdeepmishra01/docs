@@ -1,5 +1,7 @@
 # Troubleshooting Guide
 
+---
+
 ## Overview
 
 This document summarizes the major issues encountered during the implementation of the Todo Platform and the solutions used to resolve them.
@@ -10,16 +12,15 @@ This document summarizes the major issues encountered during the implementation 
 
 ### PostgreSQL Container Name Conflict
 
-**Issue**
+**Issue:**
 
 Docker Compose failed to start PostgreSQL.
 
 ```text
-Conflict. The container name "/todo-postgres"
-is already in use.
+Conflict. The container name "/todo-postgres" is already in use.
 ```
 
-**Resolution**
+**Resolution:**
 
 Remove the existing container and restart the stack.
 
@@ -28,15 +29,13 @@ docker rm -f todo-postgres
 docker compose up --build
 ```
 
-**Screenshot**
-
-![Docker Container Conflict](screenshots/troubleshoot-docker-conflict.png)
+> **Screenshot:** `screenshots/troubleshoot-docker-conflict.png`
 
 ---
 
 ### PostgreSQL Image Pull Failure
 
-**Issue**
+**Issue:**
 
 Docker failed to pull the PostgreSQL image.
 
@@ -44,7 +43,7 @@ Docker failed to pull the PostgreSQL image.
 TLS handshake timeout
 ```
 
-**Resolution**
+**Resolution:**
 
 Pull the image manually and retry deployment.
 
@@ -52,9 +51,7 @@ Pull the image manually and retry deployment.
 docker pull postgres:15
 ```
 
-**Screenshot**
-
-![PostgreSQL Pull Failure](screenshots/troubleshoot-postgres-pull.png)
+> **Screenshot:** `screenshots/troubleshoot-postgres-pull.png`
 
 ---
 
@@ -62,7 +59,7 @@ docker pull postgres:15
 
 ### k3d Cluster Creation Failure
 
-**Issue**
+**Issue:**
 
 k3d cluster creation failed while downloading the proxy image.
 
@@ -71,7 +68,7 @@ ghcr.io/k3d-io/k3d-proxy
 TLS handshake timeout
 ```
 
-**Resolution**
+**Resolution:**
 
 ```bash
 docker logout ghcr.io
@@ -79,19 +76,17 @@ docker pull ghcr.io/k3d-io/k3d-proxy:5.8.3
 k3d cluster create todo-platform
 ```
 
-**Screenshot**
-
-![k3d Proxy Issue](screenshots/troubleshoot-k3d.png)
+> **Screenshot:** `screenshots/troubleshoot-k3d.png`
 
 ---
 
 ### Persistent Volume Claim Pending
 
-**Issue**
+**Issue:**
 
-PostgreSQL pod could not start because the PVC remained in a Pending state.
+PostgreSQL pod could not start because the PVC remained in a `Pending` state.
 
-**Resolution**
+**Resolution:**
 
 Verify PVC and StorageClass configuration.
 
@@ -100,9 +95,7 @@ kubectl get pvc
 kubectl get storageclass
 ```
 
-**Screenshot**
-
-![PVC Issue](screenshots/troubleshoot-pvc.png)
+> **Screenshot:** `screenshots/troubleshoot-pvc.png`
 
 ---
 
@@ -110,38 +103,36 @@ kubectl get storageclass
 
 ### Flux Reconciliation Delay
 
-**Issue**
+**Issue:**
 
 Changes pushed to GitHub were not immediately reflected in the cluster.
 
-**Resolution**
+**Resolution:**
 
-Force reconciliation.
+Force reconciliation manually.
 
 ```bash
 flux reconcile source git flux-system
 flux reconcile kustomization flux-system
 ```
 
-Verify:
+Verify status:
 
 ```bash
 flux get all
 ```
 
-**Screenshot**
-
-![Flux Reconciliation](screenshots/troubleshoot-flux.png)
+> **Screenshot:** `screenshots/troubleshoot-flux.png`
 
 ---
 
 ### Image Automation Not Updating Tags
 
-**Issue**
+**Issue:**
 
-Flux Image Automation did not update deployment manifests.
+Flux Image Automation did not update deployment manifests after a new image was pushed.
 
-**Resolution**
+**Resolution:**
 
 Verify ImageRepository, ImagePolicy, and ImageUpdateAutomation resources.
 
@@ -151,9 +142,7 @@ kubectl get imagepolicies -A
 kubectl get imageupdateautomations -A
 ```
 
-**Screenshot**
-
-![Image Automation Issue](screenshots/troubleshoot-image-automation.png)
+> **Screenshot:** `screenshots/troubleshoot-image-automation.png`
 
 ---
 
@@ -161,15 +150,13 @@ kubectl get imageupdateautomations -A
 
 ### Prometheus Targets Not Detected
 
-**Issue**
+**Issue:**
 
 Application metrics were not visible in Prometheus.
 
-**Root Cause**
+**Root Cause:** ServiceMonitor configuration mismatch.
 
-ServiceMonitor configuration mismatch.
-
-**Resolution**
+**Resolution:**
 
 ```bash
 kubectl get servicemonitors -A
@@ -177,27 +164,23 @@ kubectl get servicemonitors -A
 
 Verify all targets are marked **UP** in Prometheus.
 
-**Screenshot**
-
-![Prometheus Targets](screenshots/troubleshoot-prometheus.png)
+> **Screenshot:** `screenshots/troubleshoot-prometheus.png`
 
 ---
 
 ### Grafana Dashboard Showing No Data
 
-**Issue**
+**Issue:**
 
 Grafana dashboards displayed empty panels.
 
-**Resolution**
+**Resolution:**
 
-* Verify Prometheus targets.
-* Validate Grafana datasource configuration.
-* Refresh dashboards after metrics collection.
+1. Verify Prometheus targets are active.
+2. Validate Grafana datasource configuration.
+3. Refresh dashboards after metrics collection.
 
-**Screenshot**
-
-![Grafana Dashboard Issue](screenshots/troubleshoot-grafana.png)
+> **Screenshot:** `screenshots/troubleshoot-grafana.png`
 
 ---
 
@@ -205,51 +188,38 @@ Grafana dashboards displayed empty panels.
 
 ### HPA Metrics Unavailable
 
-**Issue**
+**Issue:**
 
-HPA displayed:
+HPA displayed `unknown` metrics.
 
-```text
-unknown
-```
+**Resolution:**
 
-**Resolution**
-
-Verify Metrics Server.
+Verify Metrics Server is running:
 
 ```bash
 kubectl top pods -A
-```
-
-Check Metrics Server pods:
-
-```bash
 kubectl get pods -n kube-system
 ```
 
-**Screenshot**
-
-![HPA Issue](screenshots/troubleshoot-hpa.png)
+> **Screenshot:** `screenshots/troubleshoot-hpa.png`
 
 ---
 
 ### VPA Recommendations Missing
 
-**Issue**
+**Issue:**
 
 VPA showed no recommendations.
 
-**Resolution**
+**Resolution:**
 
-Generate application traffic and allow metrics collection to run.
+Generate application traffic and allow metrics collection time to run.
 
 ```bash
 kubectl describe vpa
 ```
 
-**Screenshot**
-
-![VPA Issue](screenshots/troubleshoot-vpa.png)
+> **Screenshot:** `screenshots/troubleshoot-vpa.png`
 
 ---
 
@@ -257,13 +227,13 @@ kubectl describe vpa
 
 ### SonarCloud Coverage Failure
 
-**Issue**
+**Issue:**
 
 Coverage was not being detected correctly by SonarCloud.
 
-**Resolution**
+**Resolution:**
 
-Validate coverage report generation.
+Validate coverage report generation:
 
 ```bash
 cat coverage/lcov.info
@@ -271,15 +241,13 @@ cat coverage/lcov.info
 
 Ensure application files appear in the report.
 
-**Screenshot**
-
-![SonarCloud Issue](screenshots/troubleshoot-sonar.png)
+> **Screenshot:** `screenshots/troubleshoot-sonar.png`
 
 ---
 
 ## Useful Debugging Commands
 
-### Cluster
+### Cluster Health
 
 ```bash
 kubectl get nodes
@@ -287,38 +255,14 @@ kubectl get pods -A
 kubectl get events -A
 ```
 
-### FluxCD
+### FluxCD Status
 
 ```bash
 flux get all
 ```
 
-### Monitoring
+### Monitoring Stack
 
 ```bash
 kubectl get pods -n monitoring
 ```
-
-### Autoscaling
-
-```bash
-kubectl get hpa -A
-kubectl get vpa -A
-```
-
----
-
-## Key Lessons Learned
-
-* GitOps simplifies Kubernetes operations.
-* Monitoring should be configured early.
-* Resource requests and limits are essential for autoscaling.
-* Image automation reduces deployment effort.
-* Observability significantly improves troubleshooting.
-* Infrastructure should always be managed as code.
-
----
-
-## Summary
-
-During implementation, several issues were encountered across Docker, Kubernetes, FluxCD, Monitoring, Autoscaling, and CI/CD. Resolving these challenges improved platform stability and provided practical experience with operating cloud-native applications using GitOps and Kubernetes.

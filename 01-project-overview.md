@@ -1,23 +1,29 @@
 ﻿# Project Overview
 
+---
+
 ## Introduction
 
-The Todo Platform is a cloud-native microservices application built as part of the Kubernetes DevOps Major Assignment.
+The **Todo Platform** is a cloud-native microservices application built as part of the Kubernetes DevOps Major Assignment.
 
 The project demonstrates the complete software delivery lifecycle, including containerization, Kubernetes deployment, GitOps automation, observability, security, autoscaling, and CI/CD.
 
-### Technology Stack
+---
 
-* React + Vite
-* Node.js + Express
-* PostgreSQL
-* Docker
-* Kubernetes (k3d)
-* Helm
-* FluxCD
-* Prometheus & Grafana
-* Loki & Vector
-* GitHub Actions
+## Technology Stack
+
+| Layer         | Technology           |
+| ------------- | -------------------- |
+| Frontend      | React + Vite         |
+| Backend       | Node.js + Express    |
+| Database      | PostgreSQL           |
+| Containers    | Docker               |
+| Orchestration | Kubernetes (k3d)     |
+| Packaging     | Helm                 |
+| GitOps        | FluxCD               |
+| Monitoring    | Prometheus & Grafana |
+| Logging       | Loki & Vector        |
+| CI/CD         | GitHub Actions       |
 
 ---
 
@@ -38,17 +44,13 @@ FluxCD
     v
 Kubernetes Cluster
     |
-    +--> Frontend
-    +--> Auth Service
-    +--> Todo Service
-    +--> PostgreSQL
+    +-- Frontend
+    +-- Auth Service
+    +-- Todo Service
+    +-- PostgreSQL
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/platform-architecture.png
-```
+> **Screenshot:** `docs/screenshots/platform-architecture.png`
 
 ---
 
@@ -72,7 +74,9 @@ docs/screenshots/platform-architecture.png
 
 ## Application Services
 
-| Service      | Technology  | Purpose        |
-| ------------ | ----------- | -------------- |
-| Frontend     | React, Vite | User Interface |
-| Auth Service |             |                |
+| Service      | Technology            | Purpose          |
+| ------------ | --------------------- | ---------------- |
+| Frontend     | React, Vite           | User Interface   |
+| Auth Service | Node.js, Express, JWT | Authentication   |
+| Todo Service | Node.js, Express      | Todo Management  |
+| PostgreSQL   | PostgreSQL            | Data Persistence |

@@ -1,20 +1,24 @@
 # Security
 
+---
+
 ## Overview
 
-The Todo Platform implements multiple Kubernetes security controls to protect workloads, network communication, sensitive data, and cluster resources.
+The **Todo Platform** implements multiple Kubernetes security controls to protect workloads, network communication, sensitive data, and cluster resources.
 
-### Implemented Controls
+**Implemented Controls:**
 
-* Kubernetes Secrets
-* RBAC
-* Network Policies
-* TLS with cert-manager
-* ResourceQuota
-* LimitRange
-* PriorityClass
-* PodDisruptionBudget (PDB)
-* Trivy Container Image Scanning
+| Control             | Purpose                        |
+| ------------------- | ------------------------------ |
+| Kubernetes Secrets  | Sensitive Data Management      |
+| RBAC                | Access Control                 |
+| Network Policies    | Traffic Isolation              |
+| TLS + cert-manager  | Encrypted Communication        |
+| ResourceQuota       | Resource Governance            |
+| LimitRange          | Container Resource Limits      |
+| PriorityClass       | Workload Scheduling Priority   |
+| PodDisruptionBudget | High Availability              |
+| Trivy               | Container Image Scanning       |
 
 ---
 
@@ -36,19 +40,17 @@ User
  PostgreSQL
 ```
 
-**Screenshot**
-
-![Security Architecture](screenshots/security-architecture.png)
+> **Screenshot:** `screenshots/security-architecture.png`
 
 ---
 
 ## Access Control (RBAC)
 
-Role-Based Access Control (RBAC) is used to restrict access to Kubernetes resources using:
+Role-Based Access Control (RBAC) restricts access to Kubernetes resources using:
 
-* Role
-* RoleBinding
-* ServiceAccount
+- Role
+- RoleBinding
+- ServiceAccount
 
 Verify:
 
@@ -56,27 +58,23 @@ Verify:
 kubectl get roles,rolebindings -A
 ```
 
-**Screenshot**
-
-![RBAC](screenshots/rbac.png)
+> **Screenshot:** `screenshots/rbac.png`
 
 ---
 
 ## Network Policies
 
-Network Policies restrict communication between workloads and allow only required traffic.
-
-Example:
+Network Policies restrict communication between workloads and allow only required traffic flows.
 
 ```text
 Frontend
    |
-   +--> Auth Service
+   +----> Auth Service
    |
-   +--> Todo Service
-            |
-            v
-        PostgreSQL
+   +----> Todo Service
+               |
+               v
+           PostgreSQL
 ```
 
 Verify:
@@ -85,9 +83,7 @@ Verify:
 kubectl get networkpolicy -A
 ```
 
-**Screenshot**
-
-![Network Policies](screenshots/network-policy.png)
+> **Screenshot:** `screenshots/network-policy.png`
 
 ---
 
@@ -95,10 +91,10 @@ kubectl get networkpolicy -A
 
 Sensitive configuration is stored using Kubernetes Secrets.
 
-Examples:
+**Examples:**
 
-* Database Credentials
-* JWT Secret
+- Database Credentials
+- JWT Secret
 
 Verify:
 
@@ -106,9 +102,7 @@ Verify:
 kubectl get secrets -n todo-platform
 ```
 
-**Screenshot**
-
-![Secrets](screenshots/secrets.png)
+> **Screenshot:** `screenshots/secrets.png`
 
 ---
 
@@ -116,11 +110,11 @@ kubectl get secrets -n todo-platform
 
 TLS certificates are automatically managed using cert-manager.
 
-Resources:
+**Resources:**
 
-* ClusterIssuer
-* Certificate
-* TLS Secret
+- ClusterIssuer
+- Certificate
+- TLS Secret
 
 Verify:
 
@@ -129,9 +123,7 @@ kubectl get clusterissuers
 kubectl get certificates -A
 ```
 
-**Screenshot**
-
-![Certificates](screenshots/certificates.png)
+> **Screenshot:** `screenshots/certificates.png`
 
 ---
 
@@ -139,10 +131,12 @@ kubectl get certificates -A
 
 To prevent resource abuse, the platform implements:
 
-* ResourceQuota
-* LimitRange
-* PriorityClass
-* PodDisruptionBudget
+| Control             | Purpose                      |
+| ------------------- | ---------------------------- |
+| ResourceQuota       | Namespace-level limits       |
+| LimitRange          | Per-container defaults       |
+| PriorityClass       | Workload scheduling priority |
+| PodDisruptionBudget | Availability guarantees      |
 
 Verify:
 
@@ -153,42 +147,38 @@ kubectl get priorityclass
 kubectl get pdb -A
 ```
 
-**Screenshot**
-
-![Resource Governance](screenshots/resource-governance.png)
+> **Screenshot:** `screenshots/resource-governance.png`
 
 ---
 
-## Container Security
+## Container Security Scanning
 
 Container images are scanned during CI/CD using Trivy.
 
-Benefits:
+**Benefits:**
 
-* Vulnerability Detection
-* Dependency Analysis
-* Secure Image Delivery
+- Vulnerability Detection
+- Dependency Analysis
+- Secure Image Delivery
 
-**Screenshot**
-
-![Trivy Scan](screenshots/trivy-scan.png)
+> **Screenshot:** `screenshots/trivy-scan.png`
 
 ---
 
-## Validation
+## Deliverables
 
 | Component           | Status |
 | ------------------- | ------ |
-| Secrets             | ✅      |
-| RBAC                | ✅      |
-| Network Policies    | ✅      |
-| TLS                 | ✅      |
-| cert-manager        | ✅      |
-| ResourceQuota       | ✅      |
-| LimitRange          | ✅      |
-| PriorityClass       | ✅      |
-| PodDisruptionBudget | ✅      |
-| Trivy Scanning      | ✅      |
+| Secrets             | Yes    |
+| RBAC                | Yes    |
+| Network Policies    | Yes    |
+| TLS                 | Yes    |
+| cert-manager        | Yes    |
+| ResourceQuota       | Yes    |
+| LimitRange          | Yes    |
+| PriorityClass       | Yes    |
+| PodDisruptionBudget | Yes    |
+| Trivy Scanning      | Yes    |
 
 ---
 

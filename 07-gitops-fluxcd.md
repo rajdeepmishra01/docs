@@ -1,20 +1,24 @@
 # GitOps with FluxCD
 
+---
+
 ## Overview
 
-The Todo Platform follows GitOps principles for Kubernetes deployment and lifecycle management. Git serves as the single source of truth, while FluxCD continuously synchronizes the Kubernetes cluster with the desired state stored in the GitOps repository.
+The **Todo Platform** follows GitOps principles for Kubernetes deployment and lifecycle management. Git serves as the single source of truth, while FluxCD continuously synchronizes the Kubernetes cluster with the desired state stored in the GitOps repository.
 
-### Implemented Components
+**Implemented Components:**
 
-- FluxCD
-- GitRepository
-- Kustomization
-- HelmRelease
-- ImageRepository
-- ImagePolicy
-- ImageUpdateAutomation
+| Component            | Purpose                          |
+| -------------------- | -------------------------------- |
+| FluxCD               | GitOps Controller                |
+| GitRepository        | Source Monitoring                |
+| Kustomization        | Resource Orchestration           |
+| HelmRelease          | Helm Chart Deployment            |
+| ImageRepository      | Container Image Tracking         |
+| ImagePolicy          | Image Version Policy             |
+| ImageUpdateAutomation| Automated Image Tag Updates      |
 
-### Benefits
+**Benefits:**
 
 - Automated Deployments
 - Environment Consistency
@@ -46,11 +50,7 @@ Kustomize  HelmRelease
  Kubernetes Cluster
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/gitops-architecture.png
-```
+> **Screenshot:** `docs/screenshots/gitops-architecture.png`
 
 ---
 
@@ -58,7 +58,7 @@ docs/screenshots/gitops-architecture.png
 
 FluxCD is installed inside the cluster and runs within the `flux-system` namespace.
 
-Installed Controllers:
+**Installed Controllers:**
 
 - Source Controller
 - Kustomize Controller
@@ -71,11 +71,7 @@ Verify:
 kubectl get pods -n flux-system
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/flux-controllers.png
-```
+> **Screenshot:** `docs/screenshots/flux-controllers.png`
 
 ---
 
@@ -85,21 +81,17 @@ The GitOps repository stores all Kubernetes deployment and infrastructure defini
 
 ```text
 major-assignment-gitops/
-├── clusters/
-├── helm-charts/
-├── monitoring/
-├── security/
-├── policies/
-└── advanced/
++-- clusters/
++-- helm-charts/
++-- monitoring/
++-- security/
++-- policies/
++-- advanced/
 ```
 
 This repository acts as the source of truth for the cluster.
 
-**Screenshot**
-
-```text
-docs/screenshots/gitops-repository.png
-```
+> **Screenshot:** `docs/screenshots/gitops-repository.png`
 
 ---
 
@@ -112,9 +104,8 @@ Application deployments are managed using FluxCD HelmRelease and Kustomization r
 Responsible for:
 
 - Helm Chart Deployment
-- Upgrades
-- Rollbacks
-- Reconciliation
+- Upgrades & Rollbacks
+- Continuous Reconciliation
 
 ### Kustomization
 
@@ -128,26 +119,21 @@ Verify:
 
 ```bash
 flux get helmreleases -A
-
 flux get kustomizations -A
 ```
 
-Configured Environments:
+**Configured environments:**
 
-- todo-platform-dev
-- todo-platform-staging
+- `todo-platform-dev`
+- `todo-platform-staging`
 
-**Screenshot**
-
-```text
-docs/screenshots/helmrelease-kustomization.png
-```
+> **Screenshot:** `docs/screenshots/helmrelease-kustomization.png`
 
 ---
 
 ## Continuous Reconciliation
 
-Flux continuously compares:
+Flux continuously compares the desired state in Git against the actual cluster state.
 
 ```text
 Git Desired State
@@ -155,7 +141,7 @@ Git Desired State
 Cluster Actual State
 ```
 
-If configuration drift occurs, Flux automatically restores the cluster to the desired state defined in Git.
+If configuration drift is detected, Flux automatically restores the cluster to match the Git-defined state.
 
 Verify:
 
@@ -169,13 +155,7 @@ flux get all
 
 Flux Image Automation automatically updates deployment manifests when new container images are pushed to GitHub Container Registry (GHCR).
 
-Implemented Resources:
-
-- ImageRepository
-- ImagePolicy
-- ImageUpdateAutomation
-
-Workflow:
+**Workflow:**
 
 ```text
 GHCR
@@ -200,17 +180,11 @@ Verify:
 
 ```bash
 kubectl get imagerepositories -A
-
 kubectl get imagepolicies -A
-
 kubectl get imageupdateautomations -A
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/image-automation.png
-```
+> **Screenshot:** `docs/screenshots/image-automation.png`
 
 ---
 
@@ -241,29 +215,18 @@ Flux Reconciliation
 Kubernetes Deployment
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/gitops-flow.png
-```
+> **Screenshot:** `docs/screenshots/gitops-flow.png`
 
 ---
 
-## Validation
-
-Verify GitOps resources:
+## Validation Commands
 
 ```bash
 flux get all
-
 flux get helmreleases -A
-
 flux get kustomizations -A
-
 kubectl get imagerepositories -A
-
 kubectl get imagepolicies -A
-
 kubectl get imageupdateautomations -A
 ```
 
@@ -271,18 +234,18 @@ kubectl get imageupdateautomations -A
 
 ## Deliverables
 
-| Component | Status |
-|------------|---------|
-| FluxCD | ✅ |
-| GitRepository | ✅ |
-| Kustomization | ✅ |
-| HelmRelease | ✅ |
-| Dev Environment | ✅ |
-| Staging Environment | ✅ |
-| ImageRepository | ✅ |
-| ImagePolicy | ✅ |
-| ImageUpdateAutomation | ✅ |
-| Continuous Reconciliation | ✅ |
+| Component               | Status |
+| ----------------------- | ------ |
+| FluxCD                  | Yes    |
+| GitRepository           | Yes    |
+| Kustomization           | Yes    |
+| HelmRelease             | Yes    |
+| Dev Environment         | Yes    |
+| Staging Environment     | Yes    |
+| ImageRepository         | Yes    |
+| ImagePolicy             | Yes    |
+| ImageUpdateAutomation   | Yes    |
+| Continuous Reconciliation | Yes  |
 
 ---
 

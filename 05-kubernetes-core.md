@@ -1,21 +1,25 @@
 # Kubernetes Core
 
+---
+
 ## Overview
 
-The Todo Platform is deployed on a multi-node Kubernetes cluster created using k3d.
+The **Todo Platform** is deployed on a multi-node Kubernetes cluster created using k3d.
 
 Kubernetes provides workload orchestration, service discovery, self-healing, networking, storage management, and resource governance for the platform.
 
-### Implemented Resources
+**Implemented Resources:**
 
-- Namespace
-- Deployment
-- Service
-- ConfigMap
-- Secret
-- PersistentVolumeClaim (PVC)
-- Ingress
-- Resource Requests & Limits
+| Resource                   | Purpose                     |
+| -------------------------- | --------------------------- |
+| Namespace                  | Environment Isolation       |
+| Deployment                 | Application Workloads       |
+| Service                    | Internal Communication      |
+| ConfigMap                  | Configuration Management    |
+| Secret                     | Sensitive Data              |
+| PersistentVolumeClaim (PVC)| Persistent Storage          |
+| Ingress                    | External Access             |
+| Resource Requests & Limits | Resource Governance         |
 
 ---
 
@@ -23,12 +27,10 @@ Kubernetes provides workload orchestration, service discovery, self-healing, net
 
 ```text
 k3d Cluster
-│
-├── Control Plane
-│
-├── Worker Node 1
-│
-└── Worker Node 2
+|
++-- Control Plane
++-- Worker Node 1
++-- Worker Node 2
 ```
 
 Verify:
@@ -37,11 +39,7 @@ Verify:
 kubectl get nodes -o wide
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/cluster-nodes.png
-```
+> **Screenshot:** `docs/screenshots/cluster-nodes.png`
 
 ---
 
@@ -49,15 +47,13 @@ docs/screenshots/cluster-nodes.png
 
 Namespaces are used to isolate environments and platform components.
 
-Implemented Namespaces:
-
-```text
-todo-platform
-todo-platform-dev
-todo-platform-staging
-monitoring
-flux-system
-```
+| Namespace               | Purpose                 |
+| ----------------------- | ----------------------- |
+| `todo-platform`         | Production workloads    |
+| `todo-platform-dev`     | Development environment |
+| `todo-platform-staging` | Staging environment     |
+| `monitoring`            | Observability stack     |
+| `flux-system`           | FluxCD controllers      |
 
 Verify:
 
@@ -65,11 +61,7 @@ Verify:
 kubectl get namespaces
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/namespaces.png
-```
+> **Screenshot:** `docs/screenshots/namespaces.png`
 
 ---
 
@@ -77,28 +69,23 @@ docs/screenshots/namespaces.png
 
 The platform consists of four Kubernetes deployments.
 
-| Deployment | Purpose |
-|------------|----------|
-| frontend | User Interface |
-| auth-service | Authentication |
-| todo-service | Todo Management |
-| postgres | Database |
+| Deployment     | Purpose          |
+| -------------- | ---------------- |
+| `frontend`     | User Interface   |
+| `auth-service` | Authentication   |
+| `todo-service` | Todo Management  |
+| `postgres`     | Database         |
 
 Verify:
 
 ```bash
 kubectl get deployments -n todo-platform
-
 kubectl get pods -n todo-platform
 ```
 
 Kubernetes automatically recreates failed pods, providing self-healing capabilities.
 
-**Screenshot**
-
-```text
-docs/screenshots/deployments-pods.png
-```
+> **Screenshot:** `docs/screenshots/deployments-pods.png`
 
 ---
 
@@ -106,43 +93,34 @@ docs/screenshots/deployments-pods.png
 
 ClusterIP services provide internal communication between workloads.
 
-Implemented Services:
+**Implemented Services:**
 
-- frontend
-- auth-service
-- todo-service
-- postgres
+- `frontend`
+- `auth-service`
+- `todo-service`
+- `postgres`
 
-Verify:
+Verify services:
 
 ```bash
 kubectl get svc -n todo-platform
 ```
 
-External access is provided through Kubernetes Ingress.
-
-Verify:
+Verify external access via Ingress:
 
 ```bash
 kubectl get ingress -n todo-platform
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/services-ingress.png
-```
+> **Screenshot:** `docs/screenshots/services-ingress.png`
 
 ---
 
 ## Configuration Management
 
-Application configuration is managed using:
+Application configuration is managed using ConfigMaps and Secrets.
 
-- ConfigMaps
-- Secrets
-
-Examples:
+**Examples:**
 
 - Environment Variables
 - Database Credentials
@@ -152,15 +130,10 @@ Verify:
 
 ```bash
 kubectl get configmaps -n todo-platform
-
 kubectl get secrets -n todo-platform
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/configmaps-secrets.png
-```
+> **Screenshot:** `docs/screenshots/configmaps-secrets.png`
 
 ---
 
@@ -174,11 +147,7 @@ Verify:
 kubectl get pvc -n todo-platform
 ```
 
-**Screenshot**
-
-```text
-docs/screenshots/persistent-storage.png
-```
+> **Screenshot:** `docs/screenshots/persistent-storage.png`
 
 ---
 
@@ -186,46 +155,33 @@ docs/screenshots/persistent-storage.png
 
 Resource requests and limits are configured for all workloads.
 
-Example:
-
 ```yaml
 resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
   limits:
     cpu: 500m
     memory: 512Mi
 ```
 
-Benefits:
+**Benefits:**
 
 - Predictable Scheduling
 - Resource Isolation
 - Autoscaling Support
 
-**Screenshot**
-
-```text
-docs/screenshots/resource-limits.png
-```
+> **Screenshot:** `docs/screenshots/resource-limits.png`
 
 ---
 
-## Validation
-
-Verify Kubernetes resources:
+## Validation Commands
 
 ```bash
 kubectl get deployments -n todo-platform
-
 kubectl get pods -n todo-platform
-
 kubectl get svc -n todo-platform
-
 kubectl get ingress -n todo-platform
-
 kubectl get pvc -n todo-platform
 ```
 
@@ -233,19 +189,19 @@ kubectl get pvc -n todo-platform
 
 ## Deliverables
 
-| Component | Status |
-|------------|---------|
-| Cluster | ✅ |
-| Namespaces | ✅ |
-| Deployments | ✅ |
-| Pods | ✅ |
-| Services | ✅ |
-| ConfigMaps | ✅ |
-| Secrets | ✅ |
-| PVC | ✅ |
-| Ingress | ✅ |
-| Resource Limits | ✅ |
-| Self-Healing | ✅ |
+| Component       | Status |
+| --------------- | ------ |
+| Cluster         | Yes    |
+| Namespaces      | Yes    |
+| Deployments     | Yes    |
+| Pods            | Yes    |
+| Services        | Yes    |
+| ConfigMaps      | Yes    |
+| Secrets         | Yes    |
+| PVC             | Yes    |
+| Ingress         | Yes    |
+| Resource Limits | Yes    |
+| Self-Healing    | Yes    |
 
 ---
 
